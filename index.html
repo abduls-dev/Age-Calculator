@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .result {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="calculator">
+        <h1>Age Calculator</h1>
+        <div class="input-box">
+          <input type="date" id="date" />
+          <button onclick="calculateAge()">Calculate</button>
+        </div>
+        <div id="result" class="result"></div>
+      </div>
+    </div>
+
+    <script>
+      function calculateAge() {
+        const dateInput = document.getElementById("date").value;
+        const resultElement = document.getElementById("result");
+
+        if (!dateInput) {
+          resultElement.textContent = "Please select a date";
+          return;
+        }
+
+        const birthDate = new Date(dateInput);
+        const today = new Date();
+
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+          months--;
+          days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        resultElement.textContent = `You are ${years} years, ${months} months, and ${days} days old.`;
+      }
+    </script>
+  </body>
+</html>
